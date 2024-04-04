@@ -1,5 +1,5 @@
 import { defineComponent, Fragment, h, PropType, Teleport } from 'vue'
-import { CalendarApp } from '@schedule-x/calendar'
+import { CalendarApp } from '../packages/calendar/dist/core'
 import type {
   CustomComponentMeta,
   CustomComponents,
@@ -41,7 +41,8 @@ export default defineComponent({
           | 'dateGridEvent'
           | 'monthGridEvent'
           | 'monthAgendaEvent'
-          | 'eventModal',
+          | 'eventModal'
+          | 'sidebar',
         createCustomComponent(this.setCustomComponentMeta, component)
       )
     }

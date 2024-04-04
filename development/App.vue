@@ -6,36 +6,48 @@ import {
   viewMonthAgenda,
   viewMonthGrid,
   viewWeek,
-} from '@schedule-x/calendar'
-import '@schedule-x/theme-default/dist/index.css'
+  CalendarApp,
+} from '../packages/calendar/dist/core'
+import '../packages/theme-default/dist/index.css'
 import { ref } from 'vue'
 import { createEventModalPlugin } from '@schedule-x/event-modal'
 import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
 import { seededEvents } from './data/seeded-events.ts'
 import { CustomComponents } from '../src/types/custom-components.ts'
-// import CustomTimeGridEvent from './components/CustomTimeGridEvent.vue'
 import CustomDateGridEvent from './components/CustomDateGridEvent.vue'
 import CustomEventModal from './components/CustomEventModal.vue'
-
+import CustomSidebar from './components/CustomSidebar.vue'
+import { createSidebarPlugin } from '../packages/sidebar/dist/core'
+import { onChangeToAppointments, onToggleSidePanel } from './utils'
 const counter = ref(0)
 
 const incrementCounter = () => {
   counter.value++
 }
 
-const calendarApp = createCalendar({
+const calendarApp: CalendarApp = createCalendar({
   views: [viewWeek, viewMonthGrid, viewDay, viewMonthAgenda],
   events: seededEvents,
   selectedDate: '2023-12-19',
-  plugins: [createEventModalPlugin(), createDragAndDropPlugin()],
+  plugins: [
+    createEventModalPlugin(),
+    createDragAndDropPlugin(),
+    createSidebarPlugin(),
+  ],
+  callbacks: {
+    onAddTimeOff: incrementCounter,
+    onChangeToAppointments,
+    onToggleSidePanel,
+  },
 })
 
 const addEvent = () => {
   calendarApp.events.add({
-    id: 2,
+    id: 413,
     title: 'Event 2',
-    start: '2023-12-19',
-    end: '2023-12-19',
+    start: '2023-12-19 13:00',
+    end: '2023-12-19 13:30',
+    rrule: 'FREQ=DAILY;COUNT=5',
   })
 }
 
@@ -43,12 +55,16 @@ const customComponents: CustomComponents = {
   // timeGridEvent: CustomTimeGridEvent,
   dateGridEvent: CustomDateGridEvent,
   eventModal: CustomEventModal,
+  sidebar: CustomSidebar,
 }
 </script>
 
 <template>
   <div class="app">
-    <Calendar :calendar-app="calendarApp" :custom-components="customComponents">
+    <Calendar
+      :calendar-app="calendarApp"
+      :custom-components="customComponents"
+    >
       <template #timeGridEvent="{ calendarEvent }">
         <div
           :style="{ backgroundColor: 'green', color: '#fff', height: '100%' }"
@@ -100,7 +116,12 @@ const customComponents: CustomComponents = {
 
     <button @click="addEvent">add event</button>
 
-    <button class="button" @click="incrementCounter">increment counter</button>
+    <button
+      class="button"
+      @click="incrementCounter"
+    >
+      increment counter
+    </button>
 
     <div>{{ counter }}</div>
   </div>

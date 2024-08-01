@@ -6,17 +6,21 @@ import {
   viewMonthAgenda,
   viewMonthGrid,
   viewWeek,
-} from '@schedule-x/calendar'
-import '@schedule-x/theme-default/dist/index.css'
-import { ref, shallowRef } from 'vue'
-import { createEventModalPlugin } from '@schedule-x/event-modal'
-import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
-import { seededEvents } from '../data/seeded-events.ts'
+  CalendarApp,
+} from '../packages/calendar/dist/core'
 import { CustomComponents } from '../../src/types/custom-components.ts'
 // import CustomTimeGridEvent from './components/CustomTimeGridEvent.vue'
 import CustomDateGridEvent from '../components/CustomDateGridEvent.vue'
 import CustomEventModal from '../components/CustomEventModal.vue'
 
+import '../packages/theme-default/dist/index.css'
+import { ref, shallowRef } from 'vue'
+import { createEventModalPlugin } from '@schedule-x/event-modal'
+import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
+import { seededEvents } from './data/seeded-events.ts'
+import CustomSidebar from './components/CustomSidebar.vue'
+import { createSidebarPlugin } from '../packages/sidebar/dist/core'
+import { onChangeToAppointments, onToggleSidePanel } from './utils'
 const counter = ref(0)
 
 const incrementCounter = () => {
@@ -28,7 +32,14 @@ const calendarApp = shallowRef(
     views: [viewWeek, viewMonthGrid, viewDay, viewMonthAgenda],
     events: seededEvents,
     selectedDate: '2023-12-19',
-    plugins: [createEventModalPlugin(), createDragAndDropPlugin()],
+    plugins: [createEventModalPlugin(), createDragAndDropPlugin(),
+      createSidebarPlugin(),
+    ],
+  callbacks: {
+    onAddTimeOff: incrementCounter,
+    onChangeToAppointments,
+    onToggleSidePanel,
+  },
   })
 )
 
@@ -36,8 +47,9 @@ const addEvent = () => {
   calendarApp.value.events.add({
     id: 2,
     title: 'Event 2',
-    start: '2023-12-19',
-    end: '2023-12-19',
+    start: '2023-12-19 13:00',
+    end: '2023-12-19 13:30',
+    rrule: 'FREQ=DAILY;COUNT=5',
   })
 }
 
@@ -45,6 +57,7 @@ const customComponents: CustomComponents = {
   // timeGridEvent: CustomTimeGridEvent,
   dateGridEvent: CustomDateGridEvent,
   eventModal: CustomEventModal,
+  sidebar: CustomSidebar,
 }
 
 const leftPrependState = ref(0)

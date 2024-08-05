@@ -6,7 +6,6 @@ import {
   viewMonthAgenda,
   viewMonthGrid,
   viewWeek,
-  CalendarApp,
 } from '@holitime/schedule-x-calendar/dist/core'
 import { CustomComponents } from '../../src/types/custom-components.ts'
 // import CustomTimeGridEvent from './components/CustomTimeGridEvent.vue'

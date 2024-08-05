@@ -7,20 +7,20 @@ import {
   viewMonthGrid,
   viewWeek,
   CalendarApp,
-} from '../packages/calendar/dist/core'
+} from '@holitime/schedule-x-calendar/dist/core'
 import { CustomComponents } from '../../src/types/custom-components.ts'
 // import CustomTimeGridEvent from './components/CustomTimeGridEvent.vue'
 import CustomDateGridEvent from '../components/CustomDateGridEvent.vue'
 import CustomEventModal from '../components/CustomEventModal.vue'
 
-import '../packages/theme-default/dist/index.css'
+import '@holitime/schedule-x-theme-default/dist/index.css'
 import { ref, shallowRef } from 'vue'
 import { createEventModalPlugin } from '@schedule-x/event-modal'
 import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
-import { seededEvents } from './data/seeded-events.ts'
-import CustomSidebar from './components/CustomSidebar.vue'
-import { createSidebarPlugin } from '../packages/sidebar/dist/core'
-import { onChangeToAppointments, onToggleSidePanel } from './utils'
+import { seededEvents } from '../data/seeded-events.ts'
+import CustomSidebar from '../components/CustomSidebar.vue'
+import { createSidebarPlugin } from '@holitime/schedule-x-sidebar/dist/core'
+import { onChangeToAppointments, onToggleSidePanel } from '../utils'
 const counter = ref(0)
 
 const incrementCounter = () => {

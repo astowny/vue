@@ -8,7 +8,7 @@ import {
   viewMonthAgenda,
   viewMonthGrid,
   viewWeek,
-} from '@schedule-x/calendar'
+} from '@holitime/schedule-x-calendar'
 import '@schedule-x/theme-default/dist/index.css'
 import CustomDateGridEvent from '../../../development/components/CustomDateGridEvent.vue'
 import CustomTimeGridEvent from '../../../development/components/CustomTimeGridEvent.vue'

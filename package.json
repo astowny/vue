@@ -22,7 +22,9 @@
     "build:publish": "npm run build && npm publish"
   },
   "peerDependencies": {
-    "@schedule-x/calendar": "1.56.0",
+    "@holitime/schedule-x-calendar": "*",
+    "@holitime/schedule-x-sidebar": "*",
+    "@holitime/schedule-x-theme-default": "*",
     "@schedule-x/date-picker": "^1.51.0",
     "vue": "^3"
   },

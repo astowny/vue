@@ -6,7 +6,7 @@ import {
   PropType,
   Teleport,
 } from 'vue'
-import { CalendarApp } from '../packages/calendar/dist/core'
+import { CalendarApp } from '@holitime/schedule-x-calendar/dist/core'
 import type {
   CustomComponentMeta,
   CustomComponents,
